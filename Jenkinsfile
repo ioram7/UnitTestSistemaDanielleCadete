@@ -1,8 +1,6 @@
 node {
     stage('Build') {
-        echo 'Building..'
-        deleteDir()
-        checkout scm 
+        echo 'Building..' 
     }
     stage('Test') {
         echo 'Testing..'
