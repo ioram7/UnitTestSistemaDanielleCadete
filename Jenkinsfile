@@ -6,6 +6,8 @@ node {
     }
     stage('Test') {
         echo 'Testing..'
+        parallel FrontendTests: { echo 'Testing Frontend..' },
+                 BackendTests:  { echo 'Testing Backend..' }
         sh "sudo docker run -v /home/docker/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"    
     }
     stage('Deploy') {
