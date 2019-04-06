@@ -1,5 +1,6 @@
 node {
     stage('Build') {
+        echo 'Building..'
         deleteDir()
         checkout scm 
     }
