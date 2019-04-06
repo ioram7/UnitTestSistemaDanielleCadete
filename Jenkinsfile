@@ -6,8 +6,8 @@ node {
         echo 'Building..'
 //        echo "Hello Mr. ${username}"
 //        echo "Running ${env.JOB_NAME} (${env.BUILD_ID}) at ${env.JENKINS_URL}"  
-//        deleteDir()
-//        checkout scm
+        deleteDir()
+        checkout scm
 //        sh "echo 'res' > result"
 //        stash includes: '**/result', name: 'app'
 //            if (env.BUILD_ID.toInteger() % 2 == 0) {
