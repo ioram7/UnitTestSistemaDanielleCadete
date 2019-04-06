@@ -7,7 +7,7 @@ node {
     stage('Test') {
         echo 'Testing..'
         sudo docker run -v /Users/iss/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install
-    }
+    }y
     stage('Deploy') {
         echo 'Deploying....'
     }
