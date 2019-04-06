@@ -1,8 +1,8 @@
-def username = 'DevOps'
+def username = 'Jenkins'
 node {
     stage('Build') {
         echo 'Building..'
-        echo "Projeto ${username}"
+        echo "Hello Mr. ${username}"
         deleteDir()
         checkout scm 
         sh 'cat README.md'
