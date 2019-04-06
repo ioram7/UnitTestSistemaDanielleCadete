@@ -1,6 +1,8 @@
+def username = 'DevOps'
 node {
     stage('Build') {
         echo 'Building..'
+        echo "Projeto ${username}"
         deleteDir()
         checkout scm        
     }
