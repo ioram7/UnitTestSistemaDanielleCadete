@@ -4,7 +4,8 @@ node {
         echo 'Building..'
         echo "Projeto ${username}"
         deleteDir()
-        checkout scm        
+        checkout scm 
+        sh 'cat README.md'
     }
     stage('Test') {
         echo 'Testing..'
