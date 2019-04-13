@@ -8,12 +8,12 @@ node {
         
         def ambiente = input id: 'test', message: 'Please Provide Parameters', ok: 'Next',
            parameters: [
-              choice(name: 'ENVIRONMENT',
-                  choices: ['dev','qa'].join('\n'),
-                  description: 'Please select the Environment'),
+              choice(name: 'Deseja continuar',
+                  choices: ['Sim!','Não!'].join('\n'),
+                  description: 'Selecione a opção desejada'),
               string(name: 'EXIT',
                   defaultValue: '0',
-                  description: 'Please enter the exit code.')
+                  description: 'Informe o código para continuar.')
            ]
         exitCode = ambiente['EXIT']
         echo "${ambiente}"
