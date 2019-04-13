@@ -1,9 +1,34 @@
+def exitCode = 0
 node {
     stage('Build') {
         echo 'Building..'
         sh "sudo chown -R jenkins: ${WORKSPACE}" 
         deleteDir()
-        checkout scm        
+        checkout scm
+        
+        def ambiente = input id: 'test', message: 'Please Provide Parameters', ok: 'Next',
+           parameters: [
+              choice(name: 'ENVIRONMENT',
+                  choices: ['dev','qa'].join('\n'),
+                  description: 'Please select the Environment'),
+              string(name: 'EXIT',
+                  defaultValue: '0',
+                  description: 'Please enter the exit code.')
+           ]
+        exitCode = ambiente['EXIT']
+        echo "${ambiente}"
+        
+        try {
+            sh "exit ${exitCode}"
+            echo 'Testes Unitários - Sucesso!'
+        }
+        catch (e) {
+            echo 'Falha na execução!'
+            // throw e
+        }
+        finally {
+            echo '..'
+       }
     }
     stage('Test') {
         echo 'Testing..'
