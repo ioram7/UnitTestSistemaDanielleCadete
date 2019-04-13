@@ -1,7 +1,7 @@
 node {
     stage('Build') {
         echo 'Building..'
-        deleteDir()
+        sh "sudo chown -R jenkins: ${WORKSPACE}" deleteDir()
         checkout scm        
     }
     stage('Test') {
