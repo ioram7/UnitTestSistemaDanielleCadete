@@ -9,7 +9,7 @@ node {
         
         def ambiente = input id: 'test', message: 'Please Provide Parameters', ok: 'Next',
            parameters: [
-              choice(name: 'Deseja continuar',
+              choice(name: 'Deseja continuar com a execução do JOB?',
                   choices: ['Sim!','Não!'].join('\n'),
                   description: 'Selecione a opção desejada'),
               string(name: 'EXIT',
@@ -18,6 +18,9 @@ node {
            ]
         exitCode = ambiente['EXIT']
         echo "${ambiente}"
+          
+        sh "echo 'res' > result"
+        stash includes: '**/result', name: 'app'  
         
         try {
             sh "exit ${exitCode}"
@@ -42,6 +45,11 @@ node {
     stage('Deploy') {
       node() {
         echo 'Deploying....'
+          
+        deleteDir()
+        unstash 'app'
+        sh 'cat result'
+        archiveArtifacts artifacts: '**/result', fingerprint: true
       }  
     }
 }
