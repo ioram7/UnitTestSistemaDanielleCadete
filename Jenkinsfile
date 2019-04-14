@@ -1,11 +1,8 @@
 def exitCode = 0
 node {
-    stage('Build') {
-      node() {
-        echo 'Building..'
-        sh "sudo chown -R jenkins: ${WORKSPACE}" 
-        deleteDir()
-        checkout scm
+//    stage('Build') {
+//      node() {
+//        echo 'Building..'
         
 //        def ambiente = input id: 'test', message: 'Please Provide Parameters', ok: 'Next',
 //           parameters: [
@@ -33,13 +30,15 @@ node {
 //        finally {
 //            echo '..'
 //       }
-      }    
-    }
+//      }    
+//    }
     stage('Test') {
       node() {
         echo 'Testing..'
+        deleteDir()
+        checkout scm
+        sh "sudo chown -R jenkins: ${WORKSPACE}" 
         sh "sudo docker run -v /Users/iss/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}:/workspace -w /workspace maven:latest mvn install"    
-    
       }
     }    
 //    stage('Deploy') {
