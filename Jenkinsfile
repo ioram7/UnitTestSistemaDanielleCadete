@@ -33,12 +33,13 @@ node {
 //      }    
 //    }
     stage('Test') {
-      node() {
+      node("slave1") {
         echo 'Testing..'
         deleteDir()
         checkout scm
         sh "sudo chown -R jenkins: ${WORKSPACE}" 
-        sh "sudo docker run -v /Users/iss/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}@2:/workspace -w /workspace maven:latest mvn install"    
+        sh "mvn clean install"
+//      sh "sudo docker run -v /Users/iss/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}@2:/workspace -w /workspace maven:latest mvn install"    
       }
     }    
 //    stage('Deploy') {
