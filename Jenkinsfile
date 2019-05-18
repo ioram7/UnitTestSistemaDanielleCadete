@@ -1,9 +1,11 @@
 def exitCode = 0
 node {
-//    stage('Build') {
-//      node() {
-//        echo 'Building..'
-        
+    stage('Build') {
+      node("master") {
+        echo 'Building..'
+        deleteDir()
+        checkout scm
+
 //        def ambiente = input id: 'test', message: 'Please Provide Parameters', ok: 'Next',
 //           parameters: [
 //              choice(name: 'Deseja continuar com a execução do JOB?',
@@ -17,7 +19,7 @@ node {
 //        echo "${ambiente}"
           
 //        sh "echo 'res' > result"
-//        stash includes: '**/result', name: 'app'  
+        stash includes: '**', name: 'app'
         
 //        try {
 //            sh "exit ${exitCode}"
@@ -30,13 +32,13 @@ node {
 //        finally {
 //            echo '..'
 //       }
-//      }    
-//    }
+      }    
+    }
     stage('Test') {
-      node("slave1") {
+      node("slave") {
         echo 'Testing..'
         deleteDir()
-        checkout scm
+        unstash 'app'
         sh "sudo chown -R jenkins: ${WORKSPACE}" 
         sh "mvn clean install"
 //      sh "sudo docker run -v /Users/iss/devops/exercicio3/srv/jenkins/workspace/${JOB_NAME}@2:/workspace -w /workspace maven:latest mvn install"    
